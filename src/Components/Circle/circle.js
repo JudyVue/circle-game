@@ -16,6 +16,7 @@ class Circle extends Component {
             <div 
             className="circle"
             style={this.styles}
+            draggable="true"
             >  
             </div>
         )
