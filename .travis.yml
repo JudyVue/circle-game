@@ -1,0 +1,23 @@
+language: node_js
+node_js:
+  - '7.10.0'
+deploy:
+  provider: heroku
+  api_key:
+    secure: WLTa7dB6b0AS5p5zipkbQIv0jEvIsT/wqviD5HqiBePCoZlfTsJEjJyC8OVh4qb/O5jTeWVpST3YyXNlBg6GZYOMMcNlUwbBo0CIN4T7A18jflFI+iXSUMPuz+STmMwlARejPxWL/4V9m1YT0xOoK85KtFsXrPa3LZuS7FSQtqCsjpRZReDyYLYCeVq71SmeqWc01u8XZGzlPkrJsNtiSYiHySbw4qIldhVs5Aaejz/zzX+fyoF76hR6/TRBoogNs1R/ebh4f3A4kOqTT4q5Y9H6HxWGQUZfhPNazNZXX+JQSUDCB570cPpblnjyyklF7w8dTb4Tp4MHx7jrZ1D+Cm23zD9Rvp7/QDc6f7pr2ZjJjBUS3R0s0CGhvrd+GX9nJOKvAdal/BqweJcB7VGWpfGJXQc6q8vzAUv+tleoiRT+p9WA8fIOPsjkOvHDhAsKmFK1zKYCxmjlU9Kjz/mXsL5RkRbW87mLV0Dz6vXulZjkwVcIcbjRF60DamDFIl90JH7X4bGjpdmxQncq6/hDDlSInDFIfZAf/YCh0k/mScnDIXPwUQAfZVzjUTsKPHlydL8cgnlQIQgBWAmMNOf7d3pzfiI7NASIlAXR5b6q3FjnYtRUqv/r+ExsvfpP4l1IWrR//LSQfkhIhkADQRJHv/Ka1Navajmx0gweUmzRIZI=
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-4.8
+      - g++-4.8
+env:
+  - CXX=g++-4.8
+cache:
+  directories:
+    - "node_modules"
+sudo: required
+before_script: npm install
+script:
+  - npm run test
