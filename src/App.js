@@ -18,8 +18,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-        position: 'relative',
-        top: 0,
+        top: `${0}em`,
     }
     
 
@@ -28,7 +27,6 @@ class App extends Component {
     return (
       <div className="circle-game">
         <Circle 
-        position={this.state.position}
         top={this.state.top}
         />
         <h1>Hello World, this is my circle game</h1>
