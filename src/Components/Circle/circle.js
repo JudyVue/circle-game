@@ -4,14 +4,19 @@ import './circle.css';
 
 
 class Circle extends Component {
-    // constructor(props) {
-    //     super(props);
- 
-    // }
-
+    constructor(props) {
+        super(props);
+        this.styles = {
+            position: 'relative',
+            top: this.props.top,
+        }
+    }
     render() {
         return (
-            <div className="circle">      
+            <div 
+            className="circle"
+            style={this.styles}
+            >  
             </div>
         )
     }

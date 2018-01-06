@@ -14,10 +14,23 @@ import Circle from './Components/Circle/circle'
 // </div>
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+        position: 'relative',
+        top: 0,
+    }
+    
+
+  }
   render() {
     return (
       <div className="circle-game">
-        <Circle />
+        <Circle 
+        position={this.state.position}
+        top={this.state.top}
+        />
         <h1>Hello World, this is my circle game</h1>
       </div>
     );
