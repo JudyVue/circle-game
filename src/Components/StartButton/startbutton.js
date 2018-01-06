@@ -4,8 +4,6 @@ import './startbutton.css';
 class StartButton extends Component {
     constructor(props) {
         super(props);
-        console.log(props)
-        // this.dropCircles = this.dropCircles.bind(this);
     }
 
     render() {
@@ -16,12 +14,6 @@ class StartButton extends Component {
             >START</div>
         )
     }
-
-    // dropCircles(e) {
-        
-    // }
-
-    
 }
 
 export default StartButton;
