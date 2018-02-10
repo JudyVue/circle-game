@@ -28,9 +28,11 @@ class App extends Component {
 
     this.state = {
         top: 0,
-        units: 'px',
+        // units: 'px',
         circlesCount: _declarativeLoop(this._circlesCount),
         circleSpeeds: this.setRandomSpeeds(this.minSpeed, this.maxSpeed),
+        resetCircle: false,
+        shouldCirclesFall: false,
     }   
     
     autoBind(this);
@@ -40,9 +42,10 @@ class App extends Component {
       <div className="App circle-game">
         { this.state.circlesCount.map((num, i) => (
             <Circle 
-              top={this.state.top + this.state.units} key={i}
+              top={this.state.top} key={i}
               fallingSpeed={this.state.circleSpeeds[i]}
-            
+              resetCircle={this.state.resetCircle}
+              shouldCircleFall={this.state.shouldCirclesFall}
             />
           )
         )}
@@ -70,18 +73,29 @@ class App extends Component {
     this.setState({
       top: 0,
       circleSpeeds: this.setRandomSpeeds(this.minSpeed, this.maxSpeed),
+      resetCircle: true,
+      shouldCirclesFall: false,
     })
+    this.resetCircleSpeeds();
     console.log(this.state, 'what is state on reset')
-    clearInterval(this._dropCircles)
+    // clearInterval(this._dropCircles)
+  }
+
+  resetCircleSpeeds() {
+    this.state.circleSpeeds.map(speed => {
+      return this.setState({
+          fallingSpeed: speed,
+      })
+     })
   }
 
   dropCircles() {
     console.log(this.state, 'this.state on start')
-     this._dropCircles = setInterval (() => {
-        this.setState((prevState) => {
-            return {top: prevState.top += 1}
-        })
-      }, 10)
+   this.setState({
+       shouldCirclesFall: true,
+       resetCircle: false,
+   })
+   this.resetCircleSpeeds();
   }
 
 
