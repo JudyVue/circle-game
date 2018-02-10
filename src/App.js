@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import * as autoBind from 'auto-bind';
+import * as cssColors from 'css-color-names';
+
 
 // css
 import './App.css';
@@ -13,6 +15,8 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+    console.log(cssColors)
+
     const _declarativeLoop = (num) => {
       let arr = [];
       for (let i = 1; i <= num; i++) {
@@ -20,6 +24,8 @@ class App extends Component {
       }
       return arr;
     }
+
+  
 
     this._dropCircles = null;
     this._circlesCount = 5;
@@ -33,8 +39,8 @@ class App extends Component {
         circleSpeeds: this.setRandomSpeeds(this.minSpeed, this.maxSpeed),
         resetCircle: false,
         shouldCirclesFall: false,
+        bgColors: this.getRandomBgColors(),
     }   
-    
     autoBind(this);
   }
   render() {
@@ -46,6 +52,7 @@ class App extends Component {
               fallingSpeed={this.state.circleSpeeds[i]}
               resetCircle={this.state.resetCircle}
               shouldCircleFall={this.state.shouldCirclesFall}
+              bgColor={this.state.bgColors[i]}
             />
           )
         )}
@@ -57,6 +64,24 @@ class App extends Component {
         />
       </div>
     );
+  }
+
+  getRandomBgColors() {
+    let colors = Object.keys(cssColors);
+    console.log(cssColors)
+    let len = colors.length;
+    let arr = [];
+    for (let i = 0; i <= this._circlesCount + 2; i++) {
+      let randomIndex = Math.floor(Math.random() * len);
+      let color = colors[randomIndex]
+      const isLikeBodyBgColor = cssColors[color].startsWith('#FFE') ||cssColors[color].startsWith('#ffe');
+      const alreadyChosen = arr.indexOf(color) > -1;
+
+      isLikeBodyBgColor || alreadyChosen ? console.log(`Skipping over ${color} because too close to main bg color, OR color already in the arr`) : arr.push(color);
+      if (arr.length === this._circlesCount) break;
+    }
+    console.log(arr)
+    return arr;
   }
 
   setRandomSpeeds(min, max) {
@@ -75,6 +100,7 @@ class App extends Component {
       circleSpeeds: this.setRandomSpeeds(this.minSpeed, this.maxSpeed),
       resetCircle: true,
       shouldCirclesFall: false,
+      bgColors: this.getRandomBgColors(),
     })
     this.resetCircleSpeeds();
     console.log(this.state, 'what is state on reset')

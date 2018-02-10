@@ -8,33 +8,24 @@ import './circle.css';
 class Circle extends Component {
     constructor(props) {
         super(props);
-       
-
         this._dropCircle = null;
-
         this.state = {
             top: this.props.top,
             fallingSpeed: this.props.fallingSpeed,
             resetCircle: this.props.resetCircle,
             shouldCircleFall: this.props.shouldCirclesFall,
+            bgColor: this.props.bgColor,
         }
 
         autoBind(this);
 
     }
 
-    checkForResetButtonClick(nextProps) {
-        if (nextProps.resetCircle) {
-            // console.log('in here?', nextProps)
-            clearInterval(this._dropCircle);
-            this.setState({
-                top: nextProps.top,
-            })
-           
-        }
-    }
+ 
 
-    checkForSpeedProps(nextProps) {
+
+
+    setNewSpeedProps(nextProps) {
         // console.log(nextProps, 'what are nextProps')
         if (nextProps.fallingSpeed !== this.props.fallingSpeed)
         this.setState({
@@ -56,9 +47,23 @@ class Circle extends Component {
             }, this.state.fallingSpeed)
         }
     }
+    checkForResetButtonClick(nextProps) {
+        if (nextProps.resetCircle) {
+            // console.log('in here?', nextProps)
+            clearInterval(this._dropCircle);
+            this.setState({
+                top: nextProps.top,
+            })
+           
+        }
+    }
+
+    setNewBgColors(nextProps) {
+        
+    }
 
     componentWillReceiveProps(nextProps) {
-        this.checkForSpeedProps(nextProps);
+        this.setNewSpeedProps(nextProps);
         this.dropCircle(nextProps);
         this.checkForResetButtonClick(nextProps);
     }
@@ -67,7 +72,11 @@ class Circle extends Component {
         return (
             <div 
             className="circle"
-            style={{ position: 'relative', top: this.state.top}}
+            style={{ 
+                position: 'relative', 
+                top: this.state.top,
+                backgroundColor: this.state.bgColor,
+                }}
             speed={this.state.fallingSpeed}
             >
             {this.state.fallingSpeed}
