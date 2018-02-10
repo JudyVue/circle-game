@@ -8,15 +8,12 @@ import './circle.css';
 class Circle extends Component {
     constructor(props) {
         super(props);
-        let styles = {
-            position: 'relative',
-            top: this.props.top,
-        }
+       
 
         this._dropCircle = null;
 
         this.state = {
-            styles,
+            top: this.props.top,
             fallingSpeed: this.props.fallingSpeed,
             resetCircle: this.props.resetCircle,
             shouldCircleFall: this.props.shouldCirclesFall,
@@ -31,10 +28,7 @@ class Circle extends Component {
             // console.log('in here?', nextProps)
             clearInterval(this._dropCircle);
             this.setState({
-                styles: {
-                    position: 'relative',
-                    top: nextProps.top,
-                }
+                top: nextProps.top,
             })
            
         }
@@ -51,17 +45,13 @@ class Circle extends Component {
   
 
     dropCircle(nextProps) {
-        // console.log(nextProps, 'inside dropCircle')
+        console.log(nextProps, 'inside dropCircle')
         if (nextProps.shouldCircleFall) {
             let newTop = nextProps.top;
+            console.log(newTop, 'whatw')
             this._dropCircle = setInterval(() => {
-               this.setState(prevState => {
-                   return {
-                       styles: {
-                           position: 'relative',
-                           top: newTop += 1,
-                       }
-                   }
+               this.setState({
+                    top: newTop += 1,
                })
             }, this.state.fallingSpeed)
         }
@@ -77,7 +67,7 @@ class Circle extends Component {
         return (
             <div 
             className="circle"
-            style={this.state.styles}
+            style={{ position: 'relative', top: this.state.top}}
             speed={this.state.fallingSpeed}
             >
             {this.state.fallingSpeed}
