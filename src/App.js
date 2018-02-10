@@ -89,13 +89,17 @@ class App extends Component {
      })
   }
 
-  dropCircles() {
-    console.log(this.state, 'this.state on start')
-   this.setState({
-       shouldCirclesFall: true,
-       resetCircle: false,
-   })
-   this.resetCircleSpeeds();
+  dropCircles(event) {
+    if (this.state.shouldCirclesFall) {
+      event.preventDefault();
+    } else {
+      console.log(this.state, 'this.state on start')
+     this.setState({
+         shouldCirclesFall: true,
+         resetCircle: false,
+     })
+     this.resetCircleSpeeds();
+    }
   }
 
 
