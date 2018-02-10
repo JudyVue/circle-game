@@ -17,7 +17,7 @@ class Circle extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps, 'what are nextprops')
+        // console.log(nextProps, 'what are nextprops')
         // debugger
         if (nextProps.top > this.props.top) {
             this.setState({
@@ -26,8 +26,15 @@ class Circle extends Component {
                     top: nextProps.top,
                 }
             })
+        } else if (nextProps.top === '0px') {
+            this.setState({
+                styles: {
+                    position: 'relative',
+                    top: nextProps.top,
+                }
+            })
         }
-        console.log(this.state)
+        // console.log(this.state)
 
     }
     render() {
@@ -35,8 +42,8 @@ class Circle extends Component {
             <div 
             className="circle"
             style={this.state.styles}
-            draggable="true"
-            >  
+            speed={this.props.fallingSpeed}
+            >
             </div>
         )
     }
