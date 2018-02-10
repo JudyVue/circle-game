@@ -1,18 +1,10 @@
 import React, { Component } from 'react';
-// import logo from './logo.svg';
+import * as autoBind from 'auto-bind';
+
+
 import './App.css';
 import Circle from './Components/Circle/circle';
 import StartButton from './Components/StartButton/startbutton';
-
-// <div className="App">
-// <header className="App-header">
-//   <img src={logo} className="App-logo" alt="logo" />
-//   <h1 className="App-title">Welcome to React</h1>
-// </header>
-// <p className="App-intro">
-//   To get started, edit <code>src/App.js</code> and save to reload.
-// </p>
-// </div>
 
 class App extends Component {
   constructor(props) {
@@ -28,14 +20,13 @@ class App extends Component {
 
     this.state = {
         top: 0,
-        units: 'em',
+        units: 'px',
         circles: [],
         circlesCount: declarativeLoop(4),
     }   
     
-    this.dropCircles = this.dropCircles.bind(this);
-
-
+    autoBind(this);
+    // this.dropCircles = this.dropCircles.bind(this);
   }
   render() {
     return (
@@ -51,20 +42,24 @@ class App extends Component {
     );
   }
 
+  
 
- 
-
- 
   dropCircles() {
-      setInterval(() => {
+
+    for (let i = 0; i <= 5; i++) {
+      
+      //TODO: change to setInterval
+      const _dropCircles = setInterval (() => {
+    
         this.setState((prevState) => {
             // console.log(prevState)
             return {top: prevState.top += 1}
         })
-        console.log(this.state)
+        // count++;
+        // console.log(this.state)
         // console.log('inside setInterval?')
-
-      }, 500)
+      }, 100)
+    }
 
   }
 
