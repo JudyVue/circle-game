@@ -39,7 +39,7 @@ class Circle extends Component {
         console.log(nextProps, 'inside dropCircle')
         if (nextProps.shouldCircleFall) {
             let newTop = nextProps.top;
-            console.log(newTop, 'whatw')
+            // console.log(newTop, 'whatw')
             this._dropCircle = setInterval(() => {
                this.setState({
                     top: newTop += 1,
@@ -59,7 +59,7 @@ class Circle extends Component {
     }
 
     setNewBgColors(nextProps) {
-        
+
     }
 
     componentWillReceiveProps(nextProps) {
