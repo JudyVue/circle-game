@@ -36,7 +36,7 @@ class Circle extends Component {
   
 
     dropCircle(nextProps) {
-        console.log(nextProps, 'inside dropCircle')
+        // console.log(nextProps, 'inside dropCircle')
         if (nextProps.shouldCircleFall) {
             let newTop = nextProps.top;
             // console.log(newTop, 'whatw')

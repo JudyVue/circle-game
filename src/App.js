@@ -11,11 +11,16 @@ import Circle from './Components/Circle/circle';
 import StartButton from './Components/StartButton/startbutton';
 import ResetButton from './Components/ResetButton/resetbutton';
 
+//redux stuff
+import { Provider } from 'react-redux';
+import createAppStore from './lib/store';
+const store = createAppStore();
+
 class App extends Component {
   constructor(props) {
     super(props);
 
-    console.log(cssColors)
+    // console.log(cssColors)
 
     const _declarativeLoop = (num) => {
       let arr = [];
@@ -45,30 +50,46 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="App circle-game">
-        { this.state.circlesCount.map((num, i) => (
-            <Circle 
-              top={this.state.top} key={i}
-              fallingSpeed={this.state.circleSpeeds[i]}
-              resetCircle={this.state.resetCircle}
-              shouldCircleFall={this.state.shouldCirclesFall}
-              bgColor={this.state.bgColors[i]}
+      <Provider store={store}>
+        <div className="App circle-game">
+            { this.state.circlesCount.map((num, i) => (
+                <Circle 
+                  top={this.state.top} key={i}
+                  fallingSpeed={this.state.circleSpeeds[i]}
+                  resetCircle={this.state.resetCircle}
+                  shouldCircleFall={this.state.shouldCirclesFall}
+                  bgColor={this.state.bgColors[i]}
+                />
+              )
+            )}
+            <StartButton 
+              dropCircles={this.dropCircles}
             />
-          )
-        )}
-        <StartButton 
-          dropCircles={this.dropCircles}
-        />
-        <ResetButton 
-          resetCircles={this.resetCircles}
-        />
-      </div>
+            <ResetButton 
+              resetCircles={this.resetCircles}
+            />
+       
+        </div>
+        </Provider>
+     
     );
+  }
+
+  componentDidMount() {
+    
+    store.subscribe(() => {
+      console.log(store.getState(), 'DID I GET STATE')
+
+      store.dispatch({ type: 'TEST ACTION TYPE'})
+      console.log(store, 'what is store')
+    })
+
+    console.log(store.getState())
   }
 
   getRandomBgColors() {
     let colors = Object.keys(cssColors);
-    console.log(cssColors)
+    // console.log(cssColors)
     let len = colors.length;
     let arr = [];
     for (let i = 0; i <= this._circlesCount + 2; i++) {
@@ -80,7 +101,7 @@ class App extends Component {
       isLikeBodyBgColor || alreadyChosen ? console.log(`Skipping over ${color} because too close to main bg color, OR color already in the arr`) : arr.push(color);
       if (arr.length === this._circlesCount) break;
     }
-    console.log(arr)
+    // console.log(arr)
     return arr;
   }
 
@@ -103,7 +124,7 @@ class App extends Component {
       bgColors: this.getRandomBgColors(),
     })
     this.resetCircleSpeeds();
-    console.log(this.state, 'what is state on reset')
+    // console.log(this.state, 'what is state on reset')
     // clearInterval(this._dropCircles)
   }
 
@@ -119,7 +140,7 @@ class App extends Component {
     if (this.state.shouldCirclesFall) {
       event.preventDefault();
     } else {
-      console.log(this.state, 'this.state on start')
+      // console.log(this.state, 'this.state on start')
      this.setState({
          shouldCirclesFall: true,
          resetCircle: false,
